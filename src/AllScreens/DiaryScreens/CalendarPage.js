@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 20,
+    marginTop: 40,
   },
   backButton: {
     fontSize: 24,

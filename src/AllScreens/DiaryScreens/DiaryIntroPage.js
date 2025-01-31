@@ -32,7 +32,11 @@ const DiaryIntroPage = () => {
       >
         <Text style={styles.forgotPassword}>Forgot your password?</Text>
       </TouchableOpacity>
-
+      <TouchableOpacity onPress={() => navigation.navigate("SignUpPage")}>
+        <Text style={styles.forgotPassword}>
+          Do not have an Account create one here
+        </Text>
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.loginButton}
         onPress={() => navigation.navigate("Calendar")}
