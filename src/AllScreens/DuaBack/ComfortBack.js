@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 20,
+    paddingVertical: 30,
   },
   backButton: {
     fontSize: 24,

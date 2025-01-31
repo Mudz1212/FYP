@@ -43,6 +43,7 @@ export const MainHomeStack = () => {
         component={SadnessFront}
         options={{ headerShown: false }}
       />
+      {/* These are the Screens that stem from the pages above */}
       <Stack.Screen
         name="ComfortBack"
         component={ComfortBack}

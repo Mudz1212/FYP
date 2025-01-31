@@ -14,10 +14,10 @@ const TabsConfig = () => {
         tabBarIcon: ({ color, size }) => {
           let iconName;
 
-          if (route.name === "MainHomeStack") {
+          if (route.name === "Main") {
             iconName = "home";
-          } else if (route.name === "OtherHomeStack") {
-            iconName = "settings";
+          } else if (route.name === "Other") {
+            iconName = "home";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -27,8 +27,8 @@ const TabsConfig = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="MainHomeStack" component={MainHomeStack} />
-      <Tab.Screen name="OtherHomeStack" component={OtherHomeStack} />
+      <Tab.Screen name="Main" component={MainHomeStack} />
+      <Tab.Screen name="Other" component={OtherHomeStack} />
     </Tab.Navigator>
   );
 };
