@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 const DuaFront = ({ title, data: propData, onItemPress, apiUrl }) => {
-  const [data, setData] = useState(propData || []); // Using prop data or like an empty array for easier transition to backend coding
+  const [data, setData] = useState(propData || []);
   const [loading, setLoading] = useState(!propData);
 
   useEffect(() => {

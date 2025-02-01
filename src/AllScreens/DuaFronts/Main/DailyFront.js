@@ -1,6 +1,7 @@
 import React from "react";
 import DuaFront from "../../../Layout/DuaFront";
-
+//temp data for now at least so something is displayed there however
+// will be using a fetch request to get the data from the server
 const dailyData = [
   { title: "Ayatul Kursi", description: "The greatest protection" },
   { title: "Surah Al-Fatihah", description: "The Opening of the Quran" },
@@ -9,7 +10,7 @@ const dailyData = [
 
 const DailyFront = ({ navigation }) => {
   const handleItemPress = (item) => {
-    console.log("Item pressed:", item); // Navigate or take action here
+    console.log("Item pressed:", item);
   };
 
   return (

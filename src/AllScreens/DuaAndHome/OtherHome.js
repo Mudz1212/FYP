@@ -44,7 +44,7 @@ const OtherHome = () => {
           onPress={() => navigation.navigate("ClotheFront")}
         >
           <Image
-            source={{ uri: "https://via.placeholder.com/150" }} // Replace with actual image URL
+            source={{ uri: "https://via.placeholder.com/150" }}
             style={styles.cardImage}
           />
           <Text style={styles.cardText}>Clothes</Text>
@@ -55,7 +55,7 @@ const OtherHome = () => {
             onPress={() => navigation.navigate("TravelFront")}
           >
             <Image
-              source={{ uri: "https://via.placeholder.com/150" }} // Replace with actual image URL
+              source={{ uri: "https://via.placeholder.com/150" }}
               style={styles.cardImage}
             />
             <Text style={styles.cardText}>Travel</Text>
@@ -66,7 +66,7 @@ const OtherHome = () => {
             onPress={() => navigation.navigate("NightmaresFront")}
           >
             <Image
-              source={{ uri: "https://via.placeholder.com/150" }} // Replace with actual image URL
+              source={{ uri: "https://via.placeholder.com/150" }}
               style={styles.cardImage}
             />
             <Text style={styles.cardText}>Nightmares</Text>
@@ -79,7 +79,7 @@ const OtherHome = () => {
             onPress={() => navigation.navigate("ProtectionFront")}
           >
             <Image
-              source={{ uri: "https://via.placeholder.com/150" }} // Replace with actual image URL
+              source={{ uri: "https://via.placeholder.com/150" }}
               style={styles.cardImage}
             />
             <Text style={styles.cardText}>Protection</Text>
@@ -92,7 +92,7 @@ const OtherHome = () => {
             onPress={() => navigation.navigate("WakingupFront")}
           >
             <Image
-              source={{ uri: "https://via.placeholder.com/150" }} // Replace with actual image URL
+              source={{ uri: "https://via.placeholder.com/150" }}
               style={styles.cardImage}
             />
             <Text style={styles.cardText}>Waking up</Text>

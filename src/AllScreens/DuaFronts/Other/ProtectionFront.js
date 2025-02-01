@@ -10,7 +10,7 @@ const protectiondata = [
 
 export const ProtectionFront = ({ navigation }) => {
   const handleItemPress = (item) => {
-    console.log("Item pressed:", item); // Navigate or take action here
+    console.log("Item pressed:", item);
   };
 
   return (

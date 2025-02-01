@@ -44,7 +44,7 @@ const MainHome = () => {
           onPress={() => navigation.navigate("DailyFront")}
         >
           <Image
-            source={{ uri: "https://via.placeholder.com/150" }} // Replace with actual image URL
+            source={{ uri: "https://via.placeholder.com/150" }}
             style={styles.cardImage}
           />
           <Text style={styles.cardText}>Daily</Text>
@@ -55,7 +55,7 @@ const MainHome = () => {
             onPress={() => navigation.navigate("ComfortFront")}
           >
             <Image
-              source={{ uri: "https://via.placeholder.com/150" }} // Replace with actual image URL
+              source={{ uri: "https://via.placeholder.com/150" }}
               style={styles.cardImage}
             />
             <Text style={styles.cardText}>Comfort</Text>
@@ -66,7 +66,7 @@ const MainHome = () => {
             onPress={() => navigation.navigate("SadnessFront")}
           >
             <Image
-              source={{ uri: "https://via.placeholder.com/150" }} // Replace with actual image URL
+              source={{ uri: "https://via.placeholder.com/150" }}
               style={styles.cardImage}
             />
             <Text style={styles.cardText}>Sadness</Text>
@@ -79,7 +79,7 @@ const MainHome = () => {
             onPress={() => navigation.navigate("FinanceFront")}
           >
             <Image
-              source={{ uri: "https://via.placeholder.com/150" }} // Replace with actual image URL
+              source={{ uri: "https://via.placeholder.com/150" }}
               style={styles.cardImage}
             />
             <Text style={styles.cardText}>Finance</Text>
@@ -90,7 +90,7 @@ const MainHome = () => {
           onPress={() => navigation.navigate("WealthFront")}
         >
           <Image
-            source={{ uri: "https://via.placeholder.com/150" }} // Replace with actual image URL
+            source={{ uri: "https://via.placeholder.com/150" }}
             style={styles.cardImage}
           />
           <Text style={styles.cardText}>Wealth</Text>
