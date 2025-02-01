@@ -76,7 +76,6 @@ const CalendarPage = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text style={styles.backButton}>←</Text>
@@ -84,7 +83,6 @@ const CalendarPage = ({ navigation }) => {
         <Text style={styles.headerTitle}>Calendar</Text>
       </View>
 
-      {/* Month Navigation */}
       <View style={styles.monthNavigation}>
         <TouchableOpacity onPress={() => handleMonthChange("prev")}>
           <Text style={styles.navButton}>Previous</Text>
@@ -97,7 +95,6 @@ const CalendarPage = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      {/* Calendar */}
       <View style={styles.calendar}>
         <View style={styles.weekDays}>
           {["M", "T", "W", "Th", "F", "Sa", "Su"].map((day, index) => (
@@ -111,7 +108,6 @@ const CalendarPage = ({ navigation }) => {
         </ScrollView>
       </View>
 
-      {/* Recent Entries */}
       <View style={styles.recentEntries}>
         <Text style={styles.recentEntriesTitle}>Recent Entries</Text>
         <FlatList
@@ -126,7 +122,6 @@ const CalendarPage = ({ navigation }) => {
         />
       </View>
 
-      {/* Add Entry Button */}
       <TouchableOpacity
         style={styles.addButton}
         onPress={() => alert("Add new entry!")}

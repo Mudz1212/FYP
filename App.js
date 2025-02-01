@@ -12,7 +12,6 @@ import SignUpPage from "./src/AllScreens/DiaryScreens/SignUpPage";
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
-// 📌 Stack Navigator for Diary & Calendar Screens
 const DiaryStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -23,7 +22,6 @@ const DiaryStack = () => {
   );
 };
 
-// 📌 Main App with Drawer Navigation
 const App = () => {
   return (
     <NavigationContainer>
@@ -40,7 +38,6 @@ const App = () => {
       >
         <Drawer.Screen name="Home Tabs" component={TabsConfig} />
         <Drawer.Screen name="Settings" component={SettingScreen} />
-        {/* Stack Screens Inside the Drawer */}
         <Drawer.Screen name="Diary" component={DiaryStack} />
       </Drawer.Navigator>
     </NavigationContainer>

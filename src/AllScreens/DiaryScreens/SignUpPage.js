@@ -7,22 +7,47 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-import { register } from "../../Services/Authentication";
+import { useNavigation } from "@react-navigation/native";
+import { registerUser } from "../../Services/Authentication";
 
-const SignUpPage = ({ navigation }) => {
+const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
 
   const handleSignUp = async () => {
-    setLoading(true);
-    try {
-      const user = await register(email, password);
-      Alert.alert("Success!", "Account created successfully.");
-      navigation.navigate("MainHome"); // Redirect after signup
-    } catch (error) {
-      Alert.alert("Error", error.message);
+    if (!email.trim() || !password.trim()) {
+      Alert.alert("Error", "Make sure everything is filled in correctly.");
+      return;
     }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordPattern = /^(?=.*\d).{7,}$/;
+
+    if (!emailPattern.test(email)) {
+      Alert.alert("Error", "Invalid email format. Please enter a valid email.");
+      return;
+    }
+
+    if (!passwordPattern.test(password)) {
+      Alert.alert(
+        "Error",
+        "Password must be at least 7 characters long and contain at least one number."
+      );
+      return;
+    }
+
+    setLoading(true);
+    const result = await registerUser(email, password);
+
+    if (result.success) {
+      Alert.alert("Success!", "Account created successfully.");
+      navigation.navigate("DiaryIntro");
+    } else {
+      Alert.alert("Error", result.message);
+    }
+
     setLoading(false);
   };
 
@@ -58,7 +83,7 @@ const SignUpPage = ({ navigation }) => {
         </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+      <TouchableOpacity onPress={() => navigation.navigate("DiaryIntro")}>
         <Text style={styles.linkText}>Already have an account? Login</Text>
       </TouchableOpacity>
     </View>
@@ -104,6 +129,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#d4a373",
     fontWeight: "bold",
+    textAlign: "center",
   },
 });
 
