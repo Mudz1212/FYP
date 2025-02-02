@@ -49,6 +49,7 @@ const MainHome = () => {
           />
           <Text style={styles.cardText}>Daily</Text>
         </TouchableOpacity>
+
         <View style={styles.row}>
           <TouchableOpacity
             style={styles.cardSmall}
