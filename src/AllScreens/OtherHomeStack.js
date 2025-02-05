@@ -1,6 +1,6 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import OtherHome from "./DuaAndHome/OtherHome";
+import OtherHome from "./Home/OtherHome";
 import WakingupFront from "./DuaFronts/Other/WakingupFront";
 import ProtectionFront from "./DuaFronts/Other/ProtectionFront";
 import ClotheFront from "./DuaFronts/Other/ClotheFront";

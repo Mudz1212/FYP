@@ -7,7 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 
-const ComfortFront = () => {
+const DailyFront = () => {
   const comfortData = [
     {
       title: "Ayatul Kursi: The greatest protection",
@@ -26,7 +26,7 @@ const ComfortFront = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text style={styles.backButton}>←</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Ayat ul Kursi</Text>
@@ -143,4 +143,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ComfortFront;
+export default DailyFront;
