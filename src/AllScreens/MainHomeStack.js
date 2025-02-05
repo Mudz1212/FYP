@@ -1,12 +1,12 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import MainHome from "./DuaAndHome/MainHome";
+import MainHome from "./Home/MainHome";
 import DailyFront from "./DuaFronts/Main/DailyFront";
 import FinanceFront from "./DuaFronts/Main/FinanceFront";
 import WealthFront from "./DuaFronts/Main/WealthFront";
 import ComfortFront from "./DuaFronts/Main/ComfortFront";
 import SadnessFront from "./DuaFronts/Main/Sadness";
-import ComfortBack from "./DuaBack/ComfortBack";
+import ComfortBack from "./DuaBack/Main/ComfortBack";
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +45,16 @@ export const MainHomeStack = () => {
       />
       <Stack.Screen
         name="ComfortBack"
+        component={ComfortBack}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="DailyBack"
+        component={ComfortBack}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="FinanceBack"
         component={ComfortBack}
         options={{ headerShown: false }}
       />
