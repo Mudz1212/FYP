@@ -113,6 +113,9 @@ const CalendarPage = ({ navigation }) => {
         <FlatList
           data={recentEntries}
           keyExtractor={(item, index) => index.toString()}
+          ListEmptyComponent={
+            <Text style={styles.emptyText}>No recent entries</Text>
+          }
           renderItem={({ item }) => (
             <View style={styles.entry}>
               <Text style={styles.entryDate}>{item.date}</Text>
@@ -124,7 +127,7 @@ const CalendarPage = ({ navigation }) => {
 
       <TouchableOpacity
         style={styles.addButton}
-        onPress={() => alert("Add new entry!")}
+        onPress={() => navigation.navigate("AddEntry")}
       >
         <Text style={styles.addButtonText}>+</Text>
       </TouchableOpacity>
@@ -147,7 +150,7 @@ const styles = StyleSheet.create({
   backButton: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#000",
+    color: "#d4a373",
     marginRight: 10,
   },
   headerTitle: {
@@ -220,6 +223,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginBottom: 10,
+    minHeight: 50,
   },
   entryDate: {
     fontSize: 14,
@@ -229,6 +233,12 @@ const styles = StyleSheet.create({
   entryText: {
     fontSize: 16,
     color: "#000",
+  },
+  emptyText: {
+    textAlign: "center",
+    fontSize: 16,
+    color: "#999",
+    marginTop: 20,
   },
   addButton: {
     position: "absolute",

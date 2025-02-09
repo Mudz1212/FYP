@@ -1,8 +1,9 @@
 {
   "expo": {
-    "name": "FinalYearProjectEOP",
-    "slug": "FinalYearProjectEOP",
+    "name": "finalyearprojecteop",
+    "slug": "finalyearprojecteop",
     "version": "1.0.0",
+    "entryPoint": "index.js",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",

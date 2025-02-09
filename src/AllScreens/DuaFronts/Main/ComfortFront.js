@@ -7,7 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import API from "../../../../API";
+import API from "../../../API";
 import DuaFront from "../../../Layout/DuaFront";
 
 const ComfortFront = ({ navigation }) => {

@@ -1,3 +1,7 @@
+import "react-native-url-polyfill/auto";
+import "text-encoding-polyfill";
+
+import "react-native-gesture-handler";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -8,6 +12,7 @@ import DiaryIntroPage from "./src/AllScreens/DiaryScreens/DiaryIntroPage";
 import CalendarPage from "./src/AllScreens/DiaryScreens/CalendarPage";
 import SettingScreen from "./src/AllScreens/SettingScreen";
 import SignUpPage from "./src/AllScreens/DiaryScreens/SignUpPage";
+import AddEntry from "./src/AllScreens/DiaryScreens/AddEntry";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -16,8 +21,9 @@ const DiaryStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="DiaryIntro" component={DiaryIntroPage} />
-      <Stack.Screen name="Calendar" component={CalendarPage} />
+      <Stack.Screen name="CalendarPage" component={CalendarPage} />
       <Stack.Screen name="SignUpPage" component={SignUpPage} />
+      <Stack.Screen name="AddEntry" component={AddEntry} />
     </Stack.Navigator>
   );
 };
