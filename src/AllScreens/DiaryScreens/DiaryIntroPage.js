@@ -24,7 +24,7 @@ const DiaryIntroPage = () => {
     const result = await loginUser(email, password);
 
     if (result.success) {
-      navigation.navigate("Calendar");
+      navigation.navigate("CalendarPage");
     } else {
       Alert.alert("Incorrect Login", result.message);
     }
