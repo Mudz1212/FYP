@@ -5,8 +5,13 @@ import DailyFront from "./DuaFronts/Main/DailyFront";
 import FinanceFront from "./DuaFronts/Main/FinanceFront";
 import WealthFront from "./DuaFronts/Main/WealthFront";
 import ComfortFront from "./DuaFronts/Main/ComfortFront";
-import SadnessFront from "./DuaFronts/Main/Sadness";
+import SadnessFront from "./DuaFronts/Main/SadnessFront";
+
 import ComfortBack from "./DuaBack/Main/ComfortBack";
+import DailyBack from "./DuaBack/Main/DailyBack";
+import FinanceBack from "./DuaBack/Main/Financeback";
+import SadnessBack from "./DuaBack/Main/SadnessBack";
+import WealthBack from "./DuaBack/Main/WealthBack";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +21,11 @@ export const MainHomeStack = () => {
       <Stack.Screen
         name="MainHome"
         component={MainHome}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ComfortFront"
+        component={ComfortFront}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -29,18 +39,13 @@ export const MainHomeStack = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="WealthFront"
-        component={WealthFront}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="ComfortFront"
-        component={ComfortFront}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
         name="SadnessFront"
         component={SadnessFront}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="WealthFront"
+        component={WealthFront}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -50,12 +55,22 @@ export const MainHomeStack = () => {
       />
       <Stack.Screen
         name="DailyBack"
-        component={ComfortBack}
+        component={DailyBack}
         options={{ headerShown: false }}
       />
       <Stack.Screen
         name="FinanceBack"
-        component={ComfortBack}
+        component={FinanceBack}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SadnessBack"
+        component={SadnessBack}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="WealthBack"
+        component={WealthBack}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

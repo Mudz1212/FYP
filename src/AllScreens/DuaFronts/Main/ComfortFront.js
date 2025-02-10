@@ -1,77 +1,25 @@
-import React, { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
-import API from "../../../API";
+import React from "react";
 import DuaFront from "../../../Layout/DuaFront";
+//temp data for now at least so something is displayed there however
+// will be using a fetch request to get the data from the server
+const ComfortData = [
+  { id: 1, title: "Ayatul Kursi", description: "The greatest protection" },
+  { id: 2, title: "Surah Al-Fatihah", description: "The Opening of the Quran" },
+  { id: 3, title: "Surah Al-Ikhlas", description: "The essence of monotheism" },
+];
 
-const ComfortFront = ({ navigation }) => {
-  const [duas, setDuas] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    const fetchDuas = async () => {
-      const response = await API.get("/duas");
-
-      if (response.isSuccess) {
-        setDuas(response.result.data);
-      } else {
-        setError(response.message || "Failed to fetch duas.");
-      }
-      setLoading(false);
-    };
-
-    fetchDuas();
-  }, []);
-
+export const DailyFront = ({ navigation }) => {
   const handleItemPress = (item) => {
-    navigation.navigate("ComfortBack", { item });
+    navigation.navigate("DailyBack", { item });
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.headerTitle}>Seeking Comfort in Allah</Text>
-
-      {loading ? (
-        <ActivityIndicator size="large" color="#d4a373" />
-      ) : error ? (
-        <Text style={styles.errorText}>{error}</Text>
-      ) : (
-        <DuaFront
-          title="Seeking Comfort in Allah"
-          data={duas}
-          onItemPress={handleItemPress}
-        />
-      )}
-    </ScrollView>
+    <DuaFront
+      title="On a Daily"
+      data={ComfortData}
+      onItemPress={handleItemPress}
+    />
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fffbea",
-    paddingHorizontal: 20,
-  },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#d4a373",
-    textAlign: "center",
-    marginVertical: 20,
-  },
-  errorText: {
-    fontSize: 16,
-    color: "red",
-    textAlign: "center",
-    marginTop: 20,
-  },
-});
-
-export default ComfortFront;
+export default DailyFront;

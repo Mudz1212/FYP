@@ -10,6 +10,7 @@
     "server": "node api.js"
   },
   "dependencies": {
+    "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
     "@react-native-async-storage/async-storage": "^1.24.0",
     "@react-native-firebase/app": "^21.7.1",
     "@react-native-firebase/auth": "^21.7.1",
