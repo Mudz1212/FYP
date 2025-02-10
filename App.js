@@ -13,6 +13,8 @@ import CalendarPage from "./src/AllScreens/DiaryScreens/CalendarPage";
 import SettingScreen from "./src/AllScreens/SettingScreen";
 import SignUpPage from "./src/AllScreens/DiaryScreens/SignUpPage";
 import AddEntry from "./src/AllScreens/DiaryScreens/AddEntry";
+import DuaBack from "./src/Layout/Duaback";
+import Home from "./src/Layout/Home";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -24,6 +26,8 @@ const DiaryStack = () => {
       <Stack.Screen name="CalendarPage" component={CalendarPage} />
       <Stack.Screen name="SignUpPage" component={SignUpPage} />
       <Stack.Screen name="AddEntry" component={AddEntry} />
+      <Stack.Screen name="DuaBack" component={DuaBack} />
+      <Stack.Screen name="Home" component={Home} />
     </Stack.Navigator>
   );
 };

@@ -7,6 +7,12 @@ import ClotheFront from "./DuaFronts/Other/ClotheFront";
 import NightmaresFront from "./DuaFronts/Other/NightmaresFront";
 import TravelFront from "./DuaFronts/Other/TravelFront";
 
+import ClothesBack from "./DuaBack/Other/ClothesBack";
+import NightmaresBack from "./DuaBack/Other/NightmaresBack";
+import ProtectionBack from "./DuaBack/Other/ProtectionBack";
+import TravelBack from "./DuaBack/Other/TravelBack";
+import WakingupBack from "./DuaBack/Other/WakingupBack";
+
 const Stack = createNativeStackNavigator();
 
 const OtherHomeStack = () => {
@@ -40,6 +46,31 @@ const OtherHomeStack = () => {
       <Stack.Screen
         name="TravelFront"
         component={TravelFront}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ClothesBack"
+        component={ClothesBack}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="NightmaresBack"
+        component={NightmaresBack}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ProtectionBack"
+        component={ProtectionBack}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="TravelBack"
+        component={TravelBack}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="WakingupBack"
+        component={WakingupBack}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

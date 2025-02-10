@@ -32,7 +32,13 @@ const DiaryIntroPage = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Diary</Text>
+      <TouchableOpacity
+        onPress={() => navigation.openDrawer()}
+        style={styles.menuButton}
+      >
+        <Text style={styles.menuIcon}>☰</Text>
+      </TouchableOpacity>
+
       <Text style={styles.subtitle}>Welcome Back!</Text>
       <Text style={styles.instruction}>
         Enter your email and password below
@@ -61,7 +67,7 @@ const DiaryIntroPage = () => {
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("SignUpPage")}>
         <Text style={styles.noaccount}>
-          Dont have an account? Click here to sign up
+          Don't have an account? Click here to sign up
         </Text>
       </TouchableOpacity>
 
@@ -80,18 +86,24 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 25,
   },
-  title: {
-    fontSize: 38,
-    fontWeight: "bold",
+  menuButton: {
+    position: "absolute",
+    top: 50,
+    left: 20,
+    backgroundColor: "transparent",
+    padding: 10,
+  },
+  menuIcon: {
+    fontSize: 32,
     color: "#d4a373",
-    fontFamily: "serif",
-    marginBottom: 15,
+    fontWeight: "bold",
   },
   subtitle: {
     fontSize: 26,
     fontWeight: "bold",
-    color: "#444",
+    color: "#d4a373",
     marginBottom: 25,
+    marginTop: 50,
   },
   instruction: {
     fontSize: 16,
