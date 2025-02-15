@@ -6,27 +6,30 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
+import { fetchDuaByCategory } from "../data/firebaseUtils";
 
-const DuaFront = ({ title, data: propData, onItemPress, apiUrl }) => {
-  const [data, setData] = useState(propData || []);
-  const [loading, setLoading] = useState(!propData);
+const DuaFront = ({ title, category, onItemPress }) => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!propData && apiUrl) {
-      const fetchData = async () => {
-        try {
-          const response = await fetch(apiUrl);
-          const result = await response.json();
-          setData(result);
-          setLoading(false);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-          setLoading(false);
+    const fetchData = async () => {
+      try {
+        console.log(`📢 Fetching Dua Data for Category: ${category}...`);
+        const fetchedData = await fetchDuaByCategory(category);
+        console.log("✅ Fetched Dua:", fetchedData);
+        if (fetchedData) {
+          setData(Array.isArray(fetchedData) ? fetchedData : [fetchedData]);
         }
-      };
-      fetchData();
-    }
-  }, [apiUrl, propData]);
+      } catch (error) {
+        console.error("❌ Error fetching Dua:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [category]);
 
   if (loading) {
     return (
@@ -36,20 +39,13 @@ const DuaFront = ({ title, data: propData, onItemPress, apiUrl }) => {
     );
   }
 
-  const renderItem = ({ item, index }) => (
-    <TouchableOpacity
-      style={styles.listItem}
-      onPress={() => onItemPress && onItemPress(item)}
-    >
-      <View style={styles.listIndex}>
-        <Text style={styles.indexText}>{index + 1}</Text>
+  if (!data || data.length === 0) {
+    return (
+      <View style={styles.noDataContainer}>
+        <Text style={styles.noDataText}>No data found for this Dua.</Text>
       </View>
-      <View style={styles.listContent}>
-        <Text style={styles.listTitle}>{item.title}</Text>
-        <Text style={styles.listDescription}>{item.description}</Text>
-      </View>
-    </TouchableOpacity>
-  );
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -60,7 +56,22 @@ const DuaFront = ({ title, data: propData, onItemPress, apiUrl }) => {
       <FlatList
         data={data}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={renderItem}
+        renderItem={({ item, index }) => (
+          <TouchableOpacity
+            style={styles.listItem}
+            onPress={() => onItemPress && onItemPress(item)}
+          >
+            <View style={styles.listIndex}>
+              <Text style={styles.indexText}>{index + 1}</Text>
+            </View>
+            <View style={styles.listContent}>
+              <Text style={styles.listTitle}>{item.Title}</Text>
+              {item.Description && (
+                <Text style={styles.listDescription}>{item.Description}</Text>
+              )}
+            </View>
+          </TouchableOpacity>
+        )}
         contentContainerStyle={styles.listContainer}
       />
     </View>
@@ -68,30 +79,28 @@ const DuaFront = ({ title, data: propData, onItemPress, apiUrl }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
+  container: { flex: 1, backgroundColor: "#fff" },
   header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     backgroundColor: "#ffe4b5",
-    paddingVertical: 50,
-    paddingHorizontal: 15,
-    alignItems: "center",
+    paddingTop: 50,
   },
   headerText: {
     fontSize: 20,
     fontWeight: "bold",
     color: "#333",
     fontStyle: "italic",
+    textAlign: "center",
+    width: "100%",
   },
-  listContainer: {
-    padding: 15,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
+
+  listContainer: { padding: 15 },
+  loadingContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
+  noDataContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
+  noDataText: { fontSize: 16, color: "red" },
   listItem: {
     flexDirection: "row",
     alignItems: "center",
@@ -113,23 +122,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginRight: 10,
   },
-  indexText: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#333",
-  },
-  listContent: {
-    flex: 1,
-  },
-  listTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#333",
-  },
-  listDescription: {
-    fontSize: 14,
-    color: "#666",
-  },
+  indexText: { fontSize: 16, fontWeight: "bold", color: "#333" },
+  listContent: { flex: 1 },
+  listTitle: { fontSize: 16, fontWeight: "bold", color: "#333" },
+  listDescription: { fontSize: 14, color: "#666" },
 });
 
 export default DuaFront;

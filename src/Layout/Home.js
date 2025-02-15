@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const Home = ({ title, activeTab }) => {
+const Home = ({ title, activeTab, data }) => {
   const navigation = useNavigation();
 
   return (
@@ -35,13 +35,12 @@ const Home = ({ title, activeTab }) => {
       </View>
 
       <View style={styles.tabs}>
-        <TouchableOpacity
+        <View
           style={
             activeTab === "Main"
               ? styles.tabButtonActive
               : styles.tabButtonInactive
           }
-          onPress={() => navigation.navigate("MainHome")}
         >
           <Text
             style={
@@ -52,14 +51,14 @@ const Home = ({ title, activeTab }) => {
           >
             Main
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </View>
+
+        <View
           style={
             activeTab === "Other"
               ? styles.tabButtonActive
               : styles.tabButtonInactive
           }
-          onPress={() => navigation.navigate("OtherHome")}
         >
           <Text
             style={
@@ -70,66 +69,22 @@ const Home = ({ title, activeTab }) => {
           >
             Other
           </Text>
-        </TouchableOpacity>
+        </View>
       </View>
 
       <ScrollView contentContainerStyle={styles.contentContainer}>
-        <TouchableOpacity
-          style={styles.card}
-          onPress={() => navigation.navigate("DailyFront")}
-        >
-          <Image
-            source={{ uri: "https://via.placeholder.com/150" }}
-            style={styles.cardImage}
-          />
-          <Text style={styles.cardText}>Daily</Text>
-        </TouchableOpacity>
-
-        <View style={styles.row}>
-          <TouchableOpacity
-            style={styles.cardSmall}
-            onPress={() => navigation.navigate("ComfortFront")}
-          >
-            <Image
-              source={{ uri: "https://via.placeholder.com/150" }}
-              style={styles.cardImage}
-            />
-            <Text style={styles.cardText}>Comfort</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.cardSmall}
-            onPress={() => navigation.navigate("SadnessFront")}
-          >
-            <Image
-              source={{ uri: "https://via.placeholder.com/150" }}
-              style={styles.cardImage}
-            />
-            <Text style={styles.cardText}>Sadness</Text>
-          </TouchableOpacity>
+        <View style={styles.cardGrid}>
+          {data.map((item, index) => (
+            <TouchableOpacity
+              key={index}
+              style={item.small ? styles.cardSmall : styles.cardLarge}
+              onPress={() => navigation.navigate(item.screen)}
+            >
+              <Image source={{ uri: item.image }} style={styles.cardImage} />
+              <Text style={styles.cardText}>{item.label}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
-
-        <TouchableOpacity
-          style={styles.card}
-          onPress={() => navigation.navigate("FinanceFront")}
-        >
-          <Image
-            source={{ uri: "https://via.placeholder.com/150" }}
-            style={styles.cardImage}
-          />
-          <Text style={styles.cardText}>Finance</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.card}
-          onPress={() => navigation.navigate("WealthFront")}
-        >
-          <Image
-            source={{ uri: "https://via.placeholder.com/150" }}
-            style={styles.cardImage}
-          />
-          <Text style={styles.cardText}>Wealth</Text>
-        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -145,8 +100,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingVertical: 10,
     backgroundColor: "#ffe4b5",
+    paddingTop: 50,
   },
   menuButton: {
     justifyContent: "center",
@@ -161,7 +117,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#333",
     textAlign: "center",
-    paddingVertical: 20,
     flex: 1,
   },
   iconContainer: {
@@ -205,15 +160,14 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: "center",
   },
-  row: {
+  cardGrid: {
     flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "space-between",
     width: "100%",
-    marginBottom: 20,
   },
-  card: {
+  cardLarge: {
     width: "100%",
-    marginBottom: 20,
     borderRadius: 15,
     overflow: "hidden",
     backgroundColor: "#fff",
@@ -221,6 +175,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 5,
     elevation: 3,
+    marginBottom: 20,
   },
   cardSmall: {
     width: "48%",
@@ -231,6 +186,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 5,
     elevation: 3,
+    marginBottom: 20,
   },
   cardImage: {
     width: "100%",
