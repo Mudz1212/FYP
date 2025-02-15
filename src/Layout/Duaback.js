@@ -16,16 +16,16 @@ const DuaBack = ({ item, navigation }) => {
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={styles.backButton}>←</Text>
+          <Text style={styles.TheBackButton}>←</Text>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>{item.Title}</Text>
+        <Text style={styles.headerstitle}>{item.Title}</Text>
       </View>
 
       <TouchableOpacity
         onPress={() => setIsArabicOpen(!isArabicOpen)}
         style={styles.toggleButton}
       >
-        <Text style={styles.toggleButtonText}>
+        <Text style={styles.textfortogglebutton}>
           {isArabicOpen ? "Hide Arabic" : "Show Arabic"}
         </Text>
       </TouchableOpacity>
@@ -39,7 +39,7 @@ const DuaBack = ({ item, navigation }) => {
         onPress={() => setIsTransliterationOpen(!isTransliterationOpen)}
         style={styles.toggleButton}
       >
-        <Text style={styles.toggleButtonText}>
+        <Text style={styles.textfortogglebutton}>
           {isTransliterationOpen
             ? "Hide Transliteration"
             : "Show Transliteration"}
@@ -55,7 +55,7 @@ const DuaBack = ({ item, navigation }) => {
         onPress={() => setIsTranslationOpen(!isTranslationOpen)}
         style={styles.toggleButton}
       >
-        <Text style={styles.toggleButtonText}>
+        <Text style={styles.textfortogglebutton}>
           {isTranslationOpen ? "Hide Translation" : "Show Translation"}
         </Text>
       </TouchableOpacity>
@@ -77,26 +77,28 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 30,
+    paddingVertical: 60,
   },
-  backButton: {
+  TheBackButton: {
     fontSize: 24,
     color: "#000",
     marginRight: 10,
   },
-  headerTitle: {
+  headerstitle: {
     fontSize: 28,
     fontWeight: "bold",
     color: "#d4a373",
+    textAlign: "center",
   },
   toggleButton: {
     backgroundColor: "#d4a373",
     padding: 10,
     borderRadius: 10,
     alignItems: "center",
+
     marginVertical: 10,
   },
-  toggleButtonText: {
+  textfortogglebutton: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
