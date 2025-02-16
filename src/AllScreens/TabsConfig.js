@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { MainHomeStack } from "./MainHomeStack";
 import OtherHomeStack from "./OtherHomeStack";
+import Favourites from "./Favourites";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,7 +18,9 @@ const TabsConfig = () => {
           if (route.name === "Main") {
             iconName = "home";
           } else if (route.name === "Other") {
-            iconName = "home";
+            iconName = "book";
+          } else if (route.name === "Favourite") {
+            iconName = "heart";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -29,6 +32,7 @@ const TabsConfig = () => {
     >
       <Tab.Screen name="Main" component={MainHomeStack} />
       <Tab.Screen name="Other" component={OtherHomeStack} />
+      <Tab.Screen name="Favourite" component={Favourites} />
     </Tab.Navigator>
   );
 };

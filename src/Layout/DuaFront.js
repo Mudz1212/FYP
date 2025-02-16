@@ -15,14 +15,14 @@ const DuaFront = ({ title, category, onItemPress }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(`📢 Fetching Dua Data for Category: ${category}...`);
+        console.log(` Fetching Dua Data for Category: ${category}...`);
         const fetchedData = await fetchDuaByCategory(category);
-        console.log("✅ Fetched Dua:", fetchedData);
+        console.log(" Fetched Dua:", fetchedData);
         if (fetchedData) {
           setData(Array.isArray(fetchedData) ? fetchedData : [fetchedData]);
         }
       } catch (error) {
-        console.error("❌ Error fetching Dua:", error);
+        console.error(" Error fetching Dua:", error);
       } finally {
         setLoading(false);
       }
@@ -79,7 +79,7 @@ const DuaFront = ({ title, category, onItemPress }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
+  container: { flex: 1, backgroundColor: "#fffbea" },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   listItem: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#fff",
     padding: 10,
     borderRadius: 10,
     marginBottom: 15,
