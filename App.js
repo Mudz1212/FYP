@@ -43,7 +43,7 @@ const App = () => {
           drawerInactiveTintColor: "#333",
         }}
       >
-        <Drawer.Screen name="Home Tabs" component={TabsConfig} />
+        <Drawer.Screen name="Home" component={TabsConfig} />
         <Drawer.Screen name="Settings" component={SettingScreen} />
         <Drawer.Screen name="Diary" component={DiaryStack} />
       </Drawer.Navigator>

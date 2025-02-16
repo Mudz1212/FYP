@@ -53,6 +53,13 @@ const SignUpPage = () => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        onPress={() => navigation.openDrawer()}
+        style={styles.menuButton}
+      >
+        <Text style={styles.menuIcon}>☰</Text>
+      </TouchableOpacity>
+
       <Text style={styles.title}>Sign Up</Text>
 
       <TextInput
@@ -97,6 +104,18 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: "center",
     alignItems: "center",
+  },
+  menuButton: {
+    position: "absolute",
+    top: 50,
+    left: 20,
+    backgroundColor: "transparent",
+    padding: 10,
+  },
+  menuIcon: {
+    fontSize: 32,
+    color: "#d4a373",
+    fontWeight: "bold",
   },
   title: {
     fontSize: 28,

@@ -1,56 +1,112 @@
-import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Switch,
-  TextInput,
-} from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Switch } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 
 const SettingScreen = () => {
+  const navigation = useNavigation();
+
+  // State for dropdowns
+  const [appearanceOpen, setAppearanceOpen] = useState(false);
+  const [audioOpen, setAudioOpen] = useState(false);
+  const [systemOpen, setSystemOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity>
-          <Text style={styles.backButton}>{"<"}</Text>
+        <TouchableOpacity
+          onPress={() => navigation.openDrawer()}
+          style={styles.menuButton}
+        >
+          <Ionicons name="menu" size={26} color="#d4a373" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Settings</Text>
       </View>
 
       <View style={styles.settingsList}>
-        <TouchableOpacity style={styles.settingsItem}>
+        <TouchableOpacity
+          style={styles.settingsItem}
+          onPress={() => setAppearanceOpen(!appearanceOpen)}
+        >
           <Text style={styles.settingsText}>Appearance</Text>
+          <Ionicons
+            name={appearanceOpen ? "chevron-up" : "chevron-down"}
+            size={20}
+            color="#333"
+          />
         </TouchableOpacity>
+        {appearanceOpen && (
+          <View style={styles.dropdownContent}>
+            <View style={styles.settingsSubItem}>
+              <Text style={styles.subText}>Theme</Text>
+              <Text style={styles.optionText}>AUTO</Text>
+            </View>
+          </View>
+        )}
 
-        <TouchableOpacity style={styles.settingsItem}>
+        <TouchableOpacity
+          style={styles.settingsItem}
+          onPress={() => setAudioOpen(!audioOpen)}
+        >
           <Text style={styles.settingsText}>Audio</Text>
+          <Ionicons
+            name={audioOpen ? "chevron-up" : "chevron-down"}
+            size={20}
+            color="#333"
+          />
         </TouchableOpacity>
+        {audioOpen && (
+          <View style={styles.dropdownContent}>
+            <View style={styles.settingsSubItem}>
+              <Text style={styles.subText}>Translation</Text>
+              <Switch />
+            </View>
+            <View style={styles.settingsSubItem}>
+              <Text style={styles.subText}>Transliteration</Text>
+              <Switch />
+            </View>
+          </View>
+        )}
 
-        <TouchableOpacity style={styles.settingsItem}>
+        <TouchableOpacity
+          style={styles.settingsItem}
+          onPress={() => setSystemOpen(!systemOpen)}
+        >
           <Text style={styles.settingsText}>System</Text>
+          <Ionicons
+            name={systemOpen ? "chevron-up" : "chevron-down"}
+            size={20}
+            color="#333"
+          />
         </TouchableOpacity>
+        {systemOpen && (
+          <View style={styles.dropdownContent}>
+            <View style={styles.settingsSubItem}>
+              <Text style={styles.subText}>Notifications</Text>
+              <Switch />
+            </View>
+          </View>
+        )}
 
-        <TouchableOpacity style={styles.settingsItem}>
+        <TouchableOpacity
+          style={styles.settingsItem}
+          onPress={() => setMoreOpen(!moreOpen)}
+        >
           <Text style={styles.settingsText}>More</Text>
+          <Ionicons
+            name={moreOpen ? "chevron-up" : "chevron-down"}
+            size={20}
+            color="#333"
+          />
         </TouchableOpacity>
-      </View>
-
-      <View style={styles.subPage}>
-        <View style={styles.settingsSubItem}>
-          <Text style={styles.subText}>Theme</Text>
-          <TextInput style={styles.subInput} placeholder="AUTO" />
-        </View>
-
-        <View style={styles.settingsSubItem}>
-          <Text style={styles.subText}>Translation</Text>
-          <Switch />
-        </View>
-
-        <View style={styles.settingsSubItem}>
-          <Text style={styles.subText}>Transliteration</Text>
-          <Switch />
-        </View>
+        {moreOpen && (
+          <View style={styles.dropdownContent}>
+            <View style={styles.settingsSubItem}>
+              <Text style={styles.subText}>Advanced Options</Text>
+            </View>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -59,60 +115,65 @@ const SettingScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#fffbea",
   },
   header: {
-    backgroundColor: "#ffe4b5",
-    padding: 20,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    backgroundColor: "#ffe4b5",
+    paddingTop: 50,
   },
-  backButton: {
-    fontSize: 24,
-    color: "#333",
-    marginRight: 10,
+  menuButton: {
+    justifyContent: "center",
+    alignItems: "center",
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "bold",
     color: "#333",
+    textAlign: "center",
+    flex: 1,
   },
   settingsList: {
-    backgroundColor: "#f2f2f2",
+    backgroundColor: "#fffbea",
     paddingVertical: 10,
   },
   settingsItem: {
     padding: 15,
     borderBottomWidth: 1,
-    borderBottomColor: "#ddd",
+    borderBottomColor: "#d4a373",
     backgroundColor: "#fff",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   settingsText: {
     fontSize: 16,
     color: "#333",
   },
-  subPage: {
-    marginTop: 20,
-    paddingHorizontal: 20,
+  dropdownContent: {
+    backgroundColor: "#fffbea",
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#d4a373",
   },
   settingsSubItem: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   subText: {
     fontSize: 16,
     color: "#333",
   },
-  subInput: {
-    backgroundColor: "#f9f9f9",
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 5,
-    padding: 10,
-    width: 100,
-    textAlign: "center",
+  optionText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#d4a373",
   },
 });
 
