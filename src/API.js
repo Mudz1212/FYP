@@ -1,33 +1,14 @@
-const API = {};
+import OpenAI from "openai";
 
-const BASE_URL = "http://localhost:5000";
+const openai = new OpenAI({
+  apiKey:
+    "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",
+});
 
-API.getDuas = () => callFetch(`${BASE_URL}/duas`, "GET");
+const completion = openai.chat.completions.create({
+  model: "gpt-4o-mini",
+  store: true,
+  messages: [{ role: "user", content: "write a haiku about ai" }],
+});
 
-module.exports = API;
-
-const callFetch = async (endpoint, method, dataObj = null) => {
-  let requestObj = { method: method };
-
-  if (dataObj)
-    requestObj = {
-      ...requestObj,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(dataObj),
-    };
-
-  try {
-    console.log(`Fetching from: ${endpoint}`);
-    const response = await fetch(endpoint, requestObj);
-    let result = null;
-    if (response.status !== 204) {
-      result = await response.json();
-    }
-
-    return response.status >= 200 && response.status < 300
-      ? { isSuccess: true, result }
-      : { isSuccess: false, messages: result.message };
-  } catch (error) {
-    return { isSuccess: false, message: error.message };
-  }
-};
+completion.then((result) => console.log(result.choices[0].message));
