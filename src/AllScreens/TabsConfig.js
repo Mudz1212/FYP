@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { MainHomeStack } from "./MainHomeStack";
 import OtherHomeStack from "./OtherHomeStack";
-import Favourites from "./Favourites";
+import Favourites from "../UI/Favourites";
 
 const Tab = createBottomTabNavigator();
 

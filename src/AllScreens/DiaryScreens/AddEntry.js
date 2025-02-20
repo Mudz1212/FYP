@@ -5,30 +5,53 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  ActivityIndicator,
+  Alert,
 } from "react-native";
+import { addDiaryEntry } from "../../Services/FirestoreService";
 
-const AddEntry = ({ navigation, route }) => {
+const AddEntry = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [story, setStory] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSaveEntry = () => {
+  const handleSaveEntry = async () => {
     if (!title.trim() || !story.trim()) {
-      alert("Please fill out both fields!");
+      Alert.alert("Missing Information", "Please fill out both fields.");
       return;
     }
-    navigation.navigate("CalendarPage", {
-      newEntry: { date: "Today", entry: story },
-    });
 
-    setTitle("");
-    setStory("");
+    setLoading(true);
+    console.log("Saving Entry...");
+
+    try {
+      const response = await addDiaryEntry(title, story);
+      console.log("Response from addDiaryEntry:", response);
+
+      if (response.success) {
+        console.log("Entry saved:", response.id);
+        Alert.alert("Success", "Entry saved successfully!", [
+          { text: "OK", onPress: () => navigation.navigate("CalendarPage") },
+        ]);
+        setTitle("");
+        setStory("");
+      } else {
+        console.error("Save Failed:", response.message);
+        Alert.alert("Error", response.message || "Failed to save entry.");
+      }
+    } catch (error) {
+      console.error("Unexpected Error:", error);
+      Alert.alert("Unexpected Error", "Something went wrong.");
+    }
+
+    setLoading(false);
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={styles.backButton}>←</Text>
+          <Text style={styles.backButton}>☰</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Write</Text>
       </View>
@@ -37,7 +60,7 @@ const AddEntry = ({ navigation, route }) => {
         What else are you feeling? Let's talk.
       </Text>
 
-      <Text style={styles.label}>Title -</Text>
+      <Text style={styles.label}>Title</Text>
       <TextInput
         style={styles.input}
         placeholder="Enter title..."
@@ -46,7 +69,7 @@ const AddEntry = ({ navigation, route }) => {
         onChangeText={setTitle}
       />
 
-      <Text style={styles.label}>Story -</Text>
+      <Text style={styles.label}>Story</Text>
       <TextInput
         style={[styles.input, styles.storyInput]}
         placeholder="Write your story..."
@@ -56,8 +79,16 @@ const AddEntry = ({ navigation, route }) => {
         multiline
       />
 
-      <TouchableOpacity style={styles.saveButton} onPress={handleSaveEntry}>
-        <Text style={styles.saveButtonText}>Save Entry</Text>
+      <TouchableOpacity
+        style={[styles.saveButton, loading && styles.disabledButton]}
+        onPress={handleSaveEntry}
+        disabled={loading}
+      >
+        {loading ? (
+          <ActivityIndicator color="#d4a373" />
+        ) : (
+          <Text style={styles.saveButtonText}>Save Entry</Text>
+        )}
       </TouchableOpacity>
     </View>
   );
@@ -123,6 +154,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#d4a373",
+  },
+  disabledButton: {
+    backgroundColor: "#ccc",
   },
 });
 
