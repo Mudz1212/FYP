@@ -28,47 +28,11 @@ const Home = ({ title, activeTab, data }) => {
           <TouchableOpacity>
             <Text style={styles.icon}>🔍</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("SettingScreen")}
+          >
             <Text style={styles.icon}>⚙️</Text>
           </TouchableOpacity>
-        </View>
-      </View>
-
-      <View style={styles.tabs}>
-        <View
-          style={
-            activeTab === "Main"
-              ? styles.tabButtonActive
-              : styles.tabButtonInactive
-          }
-        >
-          <Text
-            style={
-              activeTab === "Main"
-                ? styles.tabTextActive
-                : styles.tabTextInactive
-            }
-          >
-            Main
-          </Text>
-        </View>
-
-        <View
-          style={
-            activeTab === "Other"
-              ? styles.tabButtonActive
-              : styles.tabButtonInactive
-          }
-        >
-          <Text
-            style={
-              activeTab === "Other"
-                ? styles.tabTextActive
-                : styles.tabTextInactive
-            }
-          >
-            Other
-          </Text>
         </View>
       </View>
 
@@ -86,6 +50,13 @@ const Home = ({ title, activeTab, data }) => {
           ))}
         </View>
       </ScrollView>
+
+      <TouchableOpacity
+        style={styles.floatingButton}
+        onPress={() => navigation.navigate("AskAiEcho")}
+      >
+        <Text style={styles.floatingButtonText}>Ask AI Echo</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -94,6 +65,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fffbea",
+    position: "relative",
   },
   header: {
     flexDirection: "row",
@@ -128,34 +100,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#333",
   },
-  tabs: {
-    flexDirection: "row",
-    justifyContent: "center",
-    paddingVertical: 10,
-    backgroundColor: "#fffbea",
-  },
-  tabButtonActive: {
-    backgroundColor: "#d4a373",
-    paddingHorizontal: 20,
-    paddingVertical: 5,
-    borderRadius: 20,
-    marginHorizontal: 5,
-  },
-  tabButtonInactive: {
-    paddingHorizontal: 20,
-    paddingVertical: 5,
-    borderRadius: 20,
-    marginHorizontal: 5,
-  },
-  tabTextActive: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#333",
-  },
-  tabTextInactive: {
-    fontSize: 16,
-    color: "#999",
-  },
   contentContainer: {
     padding: 20,
     alignItems: "center",
@@ -171,10 +115,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     overflow: "hidden",
     backgroundColor: "#fff",
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 3,
     marginBottom: 20,
   },
   cardSmall: {
@@ -182,10 +122,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     overflow: "hidden",
     backgroundColor: "#fff",
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 3,
     marginBottom: 20,
   },
   cardImage: {
@@ -198,6 +134,25 @@ const styles = StyleSheet.create({
     color: "#333",
     textAlign: "center",
     paddingVertical: 10,
+  },
+
+  floatingButton: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    backgroundColor: "#d4a373",
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 50,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  floatingButtonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
 

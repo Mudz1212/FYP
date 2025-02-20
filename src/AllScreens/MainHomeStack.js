@@ -1,6 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MainHome from "./Home/MainHome";
+import SettingScreen from "./SettingScreen";
 import DailyFront from "./DuaFronts/Main/DailyFront";
 import FinanceFront from "./DuaFronts/Main/FinanceFront";
 import WealthFront from "./DuaFronts/Main/WealthFront";
@@ -12,6 +13,8 @@ import DailyBack from "./DuaBack/Main/DailyBack";
 import FinanceBack from "./DuaBack/Main/Financeback";
 import SadnessBack from "./DuaBack/Main/SadnessBack";
 import WealthBack from "./DuaBack/Main/WealthBack";
+import AskAiEcho from "./Ai/AskAiEcho";
+import AskAiView from "./Ai/AskAiView";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +24,21 @@ export const MainHomeStack = () => {
       <Stack.Screen
         name="MainHome"
         component={MainHome}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SettingScreen"
+        component={SettingScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="AskAiEcho"
+        component={AskAiEcho}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="AskAiView"
+        component={AskAiView}
         options={{ headerShown: false }}
       />
       <Stack.Screen

@@ -7,7 +7,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TabsConfig from "./src/AllScreens/TabsConfig";
 import DiaryIntroPage from "./src/AllScreens/DiaryScreens/DiaryIntroPage";
 import CalendarPage from "./src/AllScreens/DiaryScreens/CalendarPage";
-import SettingScreen from "./src/AllScreens/SettingScreen";
 import SignUpPage from "./src/AllScreens/DiaryScreens/SignUpPage";
 import AddEntry from "./src/AllScreens/DiaryScreens/AddEntry";
 import DuaBack from "./src/Layout/Duaback";
@@ -44,7 +43,6 @@ const App = () => {
         }}
       >
         <Drawer.Screen name="Home" component={TabsConfig} />
-        <Drawer.Screen name="Settings" component={SettingScreen} />
         <Drawer.Screen name="Diary" component={DiaryStack} />
       </Drawer.Navigator>
     </NavigationContainer>
