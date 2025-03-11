@@ -6,7 +6,6 @@ import { Ionicons } from "@expo/vector-icons";
 const SettingScreen = () => {
   const navigation = useNavigation();
 
-  // State for dropdowns
   const [appearanceOpen, setAppearanceOpen] = useState(false);
   const [audioOpen, setAudioOpen] = useState(false);
   const [systemOpen, setSystemOpen] = useState(false);

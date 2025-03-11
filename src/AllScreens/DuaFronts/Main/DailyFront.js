@@ -10,6 +10,7 @@ export const DailyFront = ({ navigation }) => {
     <DuaFront
       title="On a Daily Basis"
       category="Daily"
+      id="1"
       onItemPress={handleItemPress}
     />
   );

@@ -1,21 +1,20 @@
-import { db } from "../Services/Authentication";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import duas from "../../assets/duas.json";
 
 export const fetchDuaByCategory = async (category) => {
   try {
-    const duasCollectionRef = collection(db, "ComfortDuas");
-    const q = query(duasCollectionRef, where("Category", "==", category));
-    const querySnapshot = await getDocs(q);
+    console.log(`Fetching Duas for Category: ${category}`);
 
-    if (querySnapshot.empty) {
+    const categoryString = String(category);
+    const filteredDuas = duas.filter((dua) => dua.Category === categoryString);
+
+    if (filteredDuas.length === 0) {
+      console.log("No duas found for this category!");
       return [];
     }
 
-    return querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+    return filteredDuas;
   } catch (error) {
+    console.error("Error Fetching Duas:", error.message);
     return [];
   }
 };

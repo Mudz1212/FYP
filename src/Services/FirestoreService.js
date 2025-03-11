@@ -1,5 +1,3 @@
-/*
-
 import { db } from "./firebaseConfig";
 import {
   collection,
@@ -8,14 +6,15 @@ import {
   doc,
   updateDoc,
   deleteDoc,
-  query,
-  where,
 } from "firebase/firestore";
+
+const COLLECTION_NAME = "userEntries";
 
 export const addDiaryEntry = async (title, content) => {
   try {
-    console.log("🔹 Attempting Firestore write...");
+    console.log("✅ Attempting Firestore write");
 
+    // ✅ Firestore should be initialized already, no need for `enableFirestore()`
     const docRef = await addDoc(collection(db, "userEntries"), {
       title: title.trim(),
       content: content.trim(),
@@ -32,18 +31,24 @@ export const addDiaryEntry = async (title, content) => {
 
 export const getDiaryEntries = async () => {
   try {
-    console.log("🔹 Fetching all diary entries...");
-    const querySnapshot = await getDocs(collection(db, "userEntries"));
+    console.log("Fetching all diary entries...");
+
+    const querySnapshot = await getDocs(collection(db, COLLECTION_NAME));
+
+    if (querySnapshot.empty) {
+      console.log("No diary entries found.");
+      return [];
+    }
 
     const entries = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
 
-    console.log("✅ Fetched Diary Entries:", entries);
+    console.log("Fetched Diary Entries:", entries);
     return entries;
   } catch (error) {
-    console.error("❌ Fetching Error:", error.message);
+    console.error("Fetching Error:", error.message);
     return [];
   }
 };
@@ -51,21 +56,31 @@ export const getDiaryEntries = async () => {
 export const updateDiaryEntry = async (id, updatedFields) => {
   try {
     console.log(`🔹 Updating diary entry: ${id}`);
-    const entryRef = doc(db, "userEntries", id);
+
+    if (!id || !updatedFields || Object.keys(updatedFields).length === 0) {
+      throw new Error("Invalid update parameters.");
+    }
+
+    const entryRef = doc(db, COLLECTION_NAME, id);
     await updateDoc(entryRef, updatedFields);
-    console.log("✅ Diary Entry updated.");
+
+    console.log("Diary Entry updated.");
     return { success: true };
   } catch (error) {
-    console.error("❌ Update Error:", error.message);
+    console.error("Update Error:", error.message);
     return { success: false, message: error.message };
   }
 };
 
 export const deleteDiaryEntry = async (id) => {
   try {
-    console.log(`🔹 Deleting diary entry: ${id}`);
-    const entryRef = doc(db, "userEntries", id);
+    console.log(`🗑️ Deleting diary entry: ${id}`);
+
+    if (!id) throw new Error("Invalid entry ID.");
+
+    const entryRef = doc(db, COLLECTION_NAME, id);
     await deleteDoc(entryRef);
+
     console.log("✅ Diary Entry deleted.");
     return { success: true };
   } catch (error) {
@@ -73,31 +88,3 @@ export const deleteDiaryEntry = async (id) => {
     return { success: false, message: error.message };
   }
 };
-
-export const fetchDuaByCategory = async (category) => {
-  try {
-    console.log(`🔍 Fetching Duas where Category == "${category}"...`);
-
-    const duasCollectionRef = collection(db, "Duas");
-    const q = query(duasCollectionRef, where("Category", "==", category));
-
-    const querySnapshot = await getDocs(q, { source: "server" });
-
-    if (querySnapshot.empty) {
-      console.log(`🚨 No documents found for Category: "${category}"`);
-      return [];
-    }
-
-    const data = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-
-    console.log("✅ Firestore Data Retrieved:", data);
-    return data;
-  } catch (error) {
-    console.error("❌ Error fetching Duas:", error);
-    return [];
-  }
-};
-*/

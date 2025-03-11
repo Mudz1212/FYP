@@ -125,12 +125,23 @@ const CalendarPage = ({ navigation }) => {
         />
       </View>
 
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => navigation.navigate("AddEntry")}
-      >
-        <Text style={styles.addButtonText}>+</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.viewEntriesButton}
+          onPress={() => navigation.navigate("EntriesList")}
+        >
+          <Text style={styles.viewEntriesButtonText}>
+            View All Recent Entries
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={() => navigation.navigate("AddEntry")}
+        >
+          <Text style={styles.addButtonText}>+</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -240,10 +251,27 @@ const styles = StyleSheet.create({
     color: "#999",
     marginTop: 20,
   },
-  addButton: {
+  buttonContainer: {
     position: "absolute",
     bottom: 30,
-    right: 30,
+    right: 20,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  viewEntriesButton: {
+    backgroundColor: "#d4a373",
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 30,
+    marginRight: 10,
+    alignItems: "center",
+  },
+  viewEntriesButtonText: {
+    fontSize: 16,
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  addButton: {
     backgroundColor: "#d4a373",
     width: 60,
     height: 60,

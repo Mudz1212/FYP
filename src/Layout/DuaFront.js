@@ -14,18 +14,10 @@ const DuaFront = ({ title, category, onItemPress }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        console.log(` Fetching Dua Data for Category: ${category}...`);
-        const fetchedData = await fetchDuaByCategory(category);
-        console.log(" Fetched Dua:", fetchedData);
-        if (fetchedData) {
-          setData(Array.isArray(fetchedData) ? fetchedData : [fetchedData]);
-        }
-      } catch (error) {
-        console.error(" Error fetching Dua:", error);
-      } finally {
-        setLoading(false);
-      }
+      setLoading(true);
+      const fetchedData = await fetchDuaByCategory(category);
+      setData(fetchedData || []);
+      setLoading(false);
     };
 
     fetchData();
@@ -42,7 +34,7 @@ const DuaFront = ({ title, category, onItemPress }) => {
   if (!data || data.length === 0) {
     return (
       <View style={styles.noDataContainer}>
-        <Text style={styles.noDataText}>No data found for this Dua.</Text>
+        <Text style={styles.noDataText}>No duas found for this category.</Text>
       </View>
     );
   }
@@ -55,7 +47,7 @@ const DuaFront = ({ title, category, onItemPress }) => {
 
       <FlatList
         data={data}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item, index) => `${item.Title}-${index}`} // Ensures uniqueness
         renderItem={({ item, index }) => (
           <TouchableOpacity
             style={styles.listItem}
@@ -66,9 +58,7 @@ const DuaFront = ({ title, category, onItemPress }) => {
             </View>
             <View style={styles.listContent}>
               <Text style={styles.listTitle}>{item.Title}</Text>
-              {item.Description && (
-                <Text style={styles.listDescription}>{item.Description}</Text>
-              )}
+              <Text style={styles.listDescription}>{item.Translation}</Text>
             </View>
           </TouchableOpacity>
         )}
@@ -96,7 +86,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     width: "100%",
   },
-
   listContainer: { padding: 15 },
   loadingContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
   noDataContainer: { flex: 1, justifyContent: "center", alignItems: "center" },

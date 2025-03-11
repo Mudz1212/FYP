@@ -1,6 +1,5 @@
-/*
 import { useState, useEffect } from "react";
-import { fetchDuaByCategory } from "../Services/FirestoreService";
+import duas from "../assets/duas.json";
 import useStore from "../Store/useStore.js";
 
 const useDuaData = (category) => {
@@ -11,22 +10,23 @@ const useDuaData = (category) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(`🔍 Fetching data for category: ${category}`);
-        const fetchedData = await fetchDuaByCategory(category);
-        console.log("✅ Fetched Data from Firestore:", fetchedData);
+        console.log(`Fetching data for category: ${category}`);
 
-        if (Array.isArray(fetchedData) && fetchedData.length > 0) {
-          const augmentedData = fetchedData.map((dua) => ({
+        const filteredDuas = duas.filter((dua) => dua.Category === category);
+
+        if (Array.isArray(filteredDuas) && filteredDuas.length > 0) {
+          const augmentedData = filteredDuas.map((dua) => ({
             ...dua,
             DuaFavourite: favorites.some((fav) => fav.id === dua.id),
           }));
           setData(augmentedData);
+          console.log("Fetched Data from JSON:", augmentedData);
         } else {
-          console.log("🚨 No data found.");
+          console.log("No data found.");
           setData([]);
         }
       } catch (error) {
-        console.error("❌ Error fetching Dua:", error);
+        console.error("Error fetching Dua:", error);
       } finally {
         setLoading(false);
       }
@@ -46,6 +46,7 @@ const useDuaData = (category) => {
     const updatedFavoritesList = updatedDuaList
       .filter((item) => item.DuaFavourite)
       .map(({ id, Title, Description }) => ({ id, Title, Description }));
+
     saveFavorites(updatedFavoritesList);
   };
 
@@ -53,4 +54,3 @@ const useDuaData = (category) => {
 };
 
 export default useDuaData;
-*/

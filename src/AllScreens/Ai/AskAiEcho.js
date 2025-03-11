@@ -8,49 +8,12 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import OpenAI from "openai";
-
-const openai = new OpenAI({
-  apiKey:
-    "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",
-});
+import useAskAiEcho from "../../Hooks/UsingAiEcho";
 
 const AskAiEcho = () => {
   const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { askAiEcho, loading } = useAskAiEcho();
   const navigation = useNavigation();
-
-  const handleAskAI = async () => {
-    if (!question.trim()) {
-      return;
-    }
-
-    setLoading(true);
-    setAnswer("");
-
-    try {
-      const completion = await openai.chat.completions.create({
-        model: "gpt-4o-mini",
-        messages: [{ role: "user", content: question }],
-      });
-
-      const aiResponse = completion.choices[0].message.content;
-
-      navigation.navigate("AskAiView", {
-        userQuestion: question,
-        aiResponse,
-      });
-    } catch (error) {
-      console.error("OpenAI Error:", error);
-      navigation.navigate("AskAiView", {
-        userQuestion: question,
-        aiResponse: "⚠️ Error fetching response. Please try again.",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <View style={styles.container}>
@@ -71,7 +34,7 @@ const AskAiEcho = () => {
       />
       <TouchableOpacity
         style={styles.button}
-        onPress={handleAskAI}
+        onPress={() => askAiEcho(question)}
         disabled={loading}
       >
         <Text style={styles.buttonText}>

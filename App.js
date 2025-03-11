@@ -4,11 +4,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import TabsConfig from "./src/AllScreens/TabsConfig";
+import TabsConfig from "./src/AllScreens/Stack/TabsConfig";
 import DiaryIntroPage from "./src/AllScreens/DiaryScreens/DiaryIntroPage";
 import CalendarPage from "./src/AllScreens/DiaryScreens/CalendarPage";
 import SignUpPage from "./src/AllScreens/DiaryScreens/SignUpPage";
 import AddEntry from "./src/AllScreens/DiaryScreens/AddEntry";
+import EditEntry from "./src/AllScreens/DiaryScreens/EditEntry";
+import EntriesList from "./src/AllScreens/DiaryScreens/EntriesList";
 import DuaBack from "./src/Layout/Duaback";
 import Home from "./src/Layout/Home";
 
@@ -20,6 +22,8 @@ const DiaryStack = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="DiaryIntro" component={DiaryIntroPage} />
       <Stack.Screen name="CalendarPage" component={CalendarPage} />
+      <Stack.Screen name="EntriesList" component={EntriesList} />
+      <Stack.Screen name="EditEntry" component={EditEntry} />
       <Stack.Screen name="SignUpPage" component={SignUpPage} />
       <Stack.Screen name="AddEntry" component={AddEntry} />
       <Stack.Screen name="DuaBack" component={DuaBack} />

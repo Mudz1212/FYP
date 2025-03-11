@@ -6,51 +6,18 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
-  Alert,
 } from "react-native";
-import { addDiaryEntry } from "../../Services/FirestoreService";
+import useAddDiaryEntry from "../../Hooks/useAddDiaryEntry";
 
 const AddEntry = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [story, setStory] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSaveEntry = async () => {
-    if (!title.trim() || !story.trim()) {
-      Alert.alert("Missing Information", "Please fill out both fields.");
-      return;
-    }
-
-    setLoading(true);
-    console.log("Saving Entry...");
-
-    try {
-      const response = await addDiaryEntry(title, story);
-      console.log("Response from addDiaryEntry:", response);
-
-      if (response.success) {
-        console.log("Entry saved:", response.id);
-        Alert.alert("Success", "Entry saved successfully!", [
-          { text: "OK", onPress: () => navigation.navigate("CalendarPage") },
-        ]);
-        setTitle("");
-        setStory("");
-      } else {
-        console.error("Save Failed:", response.message);
-        Alert.alert("Error", response.message || "Failed to save entry.");
-      }
-    } catch (error) {
-      console.error("Unexpected Error:", error);
-      Alert.alert("Unexpected Error", "Something went wrong.");
-    }
-
-    setLoading(false);
-  };
+  const { saveDiaryEntry, loading } = useAddDiaryEntry();
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => navigation?.goBack()}>
           <Text style={styles.backButton}>☰</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Write</Text>
@@ -80,9 +47,12 @@ const AddEntry = ({ navigation }) => {
       />
 
       <TouchableOpacity
-        style={[styles.saveButton, loading && styles.disabledButton]}
-        onPress={handleSaveEntry}
-        disabled={loading}
+        style={[
+          styles.saveButton,
+          (loading || !title.trim() || !story.trim()) && styles.disabledButton,
+        ]}
+        onPress={() => saveDiaryEntry(title, story)}
+        disabled={loading || !title.trim() || !story.trim()}
       >
         {loading ? (
           <ActivityIndicator color="#d4a373" />

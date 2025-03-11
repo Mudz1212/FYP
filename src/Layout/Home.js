@@ -9,6 +9,20 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
+// Image mappings for each category
+const categoryImages = {
+  Clothes: require("../../assets/Clothes.jpg"),
+  Comfort: require("../../assets/Comfort.jpg"),
+  Daily: require("../../assets/Daily.jpg"),
+  Finance: require("../../assets/Finance.jpg"),
+  Nightmares: require("../../assets/Nightmares.jpg"),
+  Protection: require("../../assets/Protection.jpg"),
+  Sadness: require("../../assets/Sadness.jpg"),
+  Travel: require("../../assets/Travel.jpg"),
+  Wakingup: require("../../assets/Wakingup.jpg"),
+  Wealth: require("../../assets/Wealth.jpg"),
+};
+
 const Home = ({ title, activeTab, data }) => {
   const navigation = useNavigation();
 
@@ -25,9 +39,10 @@ const Home = ({ title, activeTab, data }) => {
         <Text style={styles.headerTitle}>{title}</Text>
 
         <View style={styles.iconContainer}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("SearchView")}>
             <Text style={styles.icon}>🔍</Text>
           </TouchableOpacity>
+
           <TouchableOpacity
             onPress={() => navigation.navigate("SettingScreen")}
           >
@@ -44,7 +59,11 @@ const Home = ({ title, activeTab, data }) => {
               style={item.small ? styles.cardSmall : styles.cardLarge}
               onPress={() => navigation.navigate(item.screen)}
             >
-              <Image source={{ uri: item.image }} style={styles.cardImage} />
+              {/* Load category images dynamically */}
+              <Image
+                source={categoryImages[item.label]}
+                style={styles.cardImage}
+              />
               <Text style={styles.cardText}>{item.label}</Text>
             </TouchableOpacity>
           ))}
