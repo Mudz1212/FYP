@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import OtherHome from "../Home/OtherHome";
 
 import SettingScreen from "../SettingScreen";
+import SearchView from "../Home/SearchView";
 
 import WakingupFront from "../DuaFronts/Other/WakingupFront";
 import ProtectionFront from "../DuaFronts/Other/ProtectionFront";
@@ -93,6 +94,11 @@ const OtherHomeStack = () => {
       <Stack.Screen
         name="WakingupBack"
         component={WakingupBack}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SearchView"
+        component={SearchView}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
