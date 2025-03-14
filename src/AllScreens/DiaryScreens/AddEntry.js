@@ -7,11 +7,11 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
-import useAddDiaryEntry from "../../Hooks/useAddDiaryEntry";
+import { useAddDiaryEntry } from "../../Hooks/UsingDiary";
 
 const AddEntry = ({ navigation }) => {
   const [title, setTitle] = useState("");
-  const [story, setStory] = useState("");
+  const [description, setDescription] = useState("");
   const { saveDiaryEntry, loading } = useAddDiaryEntry();
 
   return (
@@ -36,23 +36,23 @@ const AddEntry = ({ navigation }) => {
         onChangeText={setTitle}
       />
 
-      <Text style={styles.label}>Story</Text>
+      <Text style={styles.label}>Description</Text>
       <TextInput
         style={[styles.input, styles.storyInput]}
-        placeholder="Write your story..."
+        placeholder="Write your description..."
         placeholderTextColor="#999"
-        value={story}
-        onChangeText={setStory}
+        value={description}
+        onChangeText={setDescription}
         multiline
       />
 
       <TouchableOpacity
         style={[
           styles.saveButton,
-          (loading || !title.trim() || !story.trim()) && styles.disabledButton,
+          (!title.trim() || !description.trim()) && styles.disabledButton,
         ]}
-        onPress={() => saveDiaryEntry(title, story)}
-        disabled={loading || !title.trim() || !story.trim()}
+        onPress={() => saveDiaryEntry(title, description)}
+        disabled={loading || !title.trim() || !description.trim()}
       >
         {loading ? (
           <ActivityIndicator color="#d4a373" />
@@ -63,7 +63,6 @@ const AddEntry = ({ navigation }) => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

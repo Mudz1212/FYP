@@ -1,55 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { registerUser } from "../../Services/Authentication";
+import { useAuthentication } from "../../Hooks/useAuthentication";
 
 const SignUpPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
-
-  const handleSignUp = async () => {
-    if (!email.trim() || !password.trim()) {
-      Alert.alert("Error", "Make sure everything is filled in correctly.");
-      return;
-    }
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordPattern = /^(?=.*\d).{7,}$/;
-
-    if (!emailPattern.test(email)) {
-      Alert.alert("Error", "Invalid email format. Please enter a valid email.");
-      return;
-    }
-
-    if (!passwordPattern.test(password)) {
-      Alert.alert(
-        "Error",
-        "Password must be at least 7 characters long and contain at least one number."
-      );
-      return;
-    }
-
-    setLoading(true);
-    const result = await registerUser(email, password);
-
-    if (result.success) {
-      Alert.alert("Success!", "Account created successfully.");
-      navigation.navigate("DiaryIntro");
-    } else {
-      Alert.alert("Error", result.message);
-    }
-
-    setLoading(false);
-  };
+  const { email, setEmail, password, setPassword, handleSignUp, loading } =
+    useAuthentication();
 
   return (
     <View style={styles.container}>

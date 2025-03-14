@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-// Image mappings for each category
 const categoryImages = {
   Clothes: require("../../assets/Clothes.jpg"),
   Comfort: require("../../assets/Comfort.jpg"),

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -6,48 +6,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
-  Alert,
 } from "react-native";
-import {
-  getDiaryEntries,
-  deleteDiaryEntry,
-} from "../../Services/FirestoreService";
+import { useDiaryEntries } from "../../Hooks/UsingDiary";
 
 const EntriesList = ({ navigation }) => {
-  const [entries, setEntries] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchEntries();
-  }, []);
-
-  const fetchEntries = async () => {
-    setLoading(true);
-    try {
-      const data = await getDiaryEntries();
-      setEntries(data);
-    } catch (error) {
-      Alert.alert("Error", "Failed to fetch entries.");
-    }
-    setLoading(false);
-  };
-
-  const handleDeleteEntry = async (id) => {
-    Alert.alert("Delete Entry", "Are you sure you want to delete this entry?", [
-      { text: "Cancel", style: "cancel" },
-      {
-        text: "Delete",
-        onPress: async () => {
-          const response = await deleteDiaryEntry(id);
-          if (response.success) {
-            fetchEntries();
-          } else {
-            Alert.alert("Error", "Failed to delete entry.");
-          }
-        },
-      },
-    ]);
-  };
+  const { entries, loading, handleDeleteEntry } = useDiaryEntries();
 
   if (loading) {
     return (
@@ -60,12 +23,13 @@ const EntriesList = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Your Diary Entries</Text>
-      {entries.length === 0 ? (
+
+      {entries?.length === 0 || !entries ? (
         <Text style={styles.noEntriesText}>No entries found.</Text>
       ) : (
         <FlatList
           data={entries}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => String(item.id)}
           renderItem={({ item }) => (
             <View style={styles.entryContainer}>
               <TouchableOpacity
@@ -73,9 +37,9 @@ const EntriesList = ({ navigation }) => {
                   navigation.navigate("EditEntry", { entry: item })
                 }
               >
-                <Text style={styles.entryTitle}>{item.title}</Text>
+                <Text style={styles.entryTitle}>{item.Title}</Text>
                 <Text style={styles.entryDate}>
-                  {new Date(item.date).toLocaleDateString()}
+                  {new Date(item.created_at).toLocaleDateString()}{" "}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleDeleteEntry(item.id)}>

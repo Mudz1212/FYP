@@ -1,34 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { loginUser } from "../../Services/Authentication";
+import { useAuthentication } from "../../Hooks/useAuthentication";
 
 const DiaryIntroPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigation = useNavigation();
-
-  const handleLogin = async () => {
-    if (!email.trim() || !password.trim()) {
-      Alert.alert("Error", "Email and password fields cannot be empty.");
-      return;
-    }
-
-    const result = await loginUser(email, password);
-
-    if (result.success) {
-      navigation.navigate("CalendarPage");
-    } else {
-      Alert.alert("Incorrect Login", result.message);
-    }
-  };
+  const { email, setEmail, password, setPassword, handleLogin } =
+    useAuthentication();
+  const navigation = useNavigation(); // Get navigation here
 
   return (
     <View style={styles.container}>
@@ -62,9 +46,13 @@ const DiaryIntroPage = () => {
         onChangeText={setPassword}
       />
 
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={() => handleLogin(navigation)} // Pass navigation to handleLogin
+      >
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
+
       <TouchableOpacity onPress={() => navigation.navigate("SignUpPage")}>
         <Text style={styles.noaccount}>
           Don't have an account? Click here to sign up

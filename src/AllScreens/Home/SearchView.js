@@ -14,7 +14,7 @@ const SearchView = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const navigation = useNavigation(); // ✅ Get navigation object
+  const navigation = useNavigation();
 
   const handleSearch = async (query) => {
     setSearchQuery(query);
@@ -27,7 +27,7 @@ const SearchView = () => {
   const renderDuaItem = ({ item }) => (
     <TouchableOpacity
       style={styles.itemContainer}
-      onPress={() => navigation.navigate("DuaFront", { dua: item })} // ✅ Navigate to DuaFront
+      onPress={() => navigation.navigate("DuaFront", { dua: item })}
     >
       <Text style={styles.title}>{item.Title}</Text>
       <Text style={styles.description}>{item.Description}</Text>
@@ -49,7 +49,7 @@ const SearchView = () => {
       />
       <FlatList
         data={searchResults}
-        keyExtractor={(item, index) => index.toString()} // ✅ Fix duplicate key warning
+        keyExtractor={(item, index) => index.toString()}
         renderItem={renderDuaItem}
         ListEmptyComponent={
           !loading && (

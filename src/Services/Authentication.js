@@ -1,17 +1,15 @@
-import { auth } from "./firebaseConfig";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import supabase from "../SuperbaseConfig/supabase";
 
 export const registerUser = async (email, password) => {
   try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
+    const { data, error } = await supabase.auth.signUp({
       email,
-      password
-    );
-    return { success: true, user: userCredential.user };
+      password,
+    });
+
+    if (error) throw error;
+
+    return { success: true, data };
   } catch (error) {
     return { success: false, message: error.message };
   }
@@ -19,12 +17,22 @@ export const registerUser = async (email, password) => {
 
 export const loginUser = async (email, password) => {
   try {
-    await signInWithEmailAndPassword(auth, email, password);
-    return { success: true };
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) throw error;
+
+    return { success: true, user: data.user };
   } catch (error) {
     return {
       success: false,
       message: "Incorrect email or password. Please try again.",
     };
   }
+};
+
+export const logoutUser = async () => {
+  await supabase.auth.signOut();
 };

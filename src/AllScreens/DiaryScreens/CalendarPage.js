@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -7,35 +7,17 @@ import {
   FlatList,
   ScrollView,
 } from "react-native";
+import { useCalendar } from "../../Hooks/UsingDiary";
 
 const CalendarPage = ({ navigation }) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  const [recentEntries, setRecentEntries] = useState([
-    {
-      date: "15/12/24",
-      entry:
-        "My cat - prince was lost for 12hrs!! Nearly cried myself to sleep that night",
-    },
-    { date: "To be filled", entry: "*" },
-  ]);
-
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const daysInMonth = (month, year) => new Date(year, month + 1, 0).getDate();
+  const {
+    currentMonth,
+    currentYear,
+    recentEntries,
+    months,
+    daysInMonth,
+    handleMonthChange,
+  } = useCalendar();
 
   const renderCalendar = () => {
     const days = [];
@@ -54,24 +36,6 @@ const CalendarPage = ({ navigation }) => {
       );
     }
     return days;
-  };
-
-  const handleMonthChange = (direction) => {
-    if (direction === "prev") {
-      if (currentMonth === 0) {
-        setCurrentMonth(11);
-        setCurrentYear((prev) => prev - 1);
-      } else {
-        setCurrentMonth((prev) => prev - 1);
-      }
-    } else {
-      if (currentMonth === 11) {
-        setCurrentMonth(0);
-        setCurrentYear((prev) => prev + 1);
-      } else {
-        setCurrentMonth((prev) => prev + 1);
-      }
-    }
   };
 
   return (

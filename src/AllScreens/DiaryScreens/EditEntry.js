@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -6,44 +6,18 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
-  Alert,
 } from "react-native";
-import { updateDiaryEntry } from "../../Services/FirestoreService";
+import { useEditEntry } from "../../Hooks/UsingDiary";
 
 const EditEntry = ({ route, navigation }) => {
-  const { entry } = route.params;
-  const [title, setTitle] = useState(entry.title);
-  const [story, setStory] = useState(entry.content);
-  const [loading, setLoading] = useState(false);
-
-  const handleUpdateEntry = async () => {
-    if (!title.trim() || !story.trim()) {
-      Alert.alert("Missing Information", "Please fill out both fields.");
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const response = await updateDiaryEntry(entry.id, {
-        title: title.trim(),
-        content: story.trim(),
-        date: new Date().toISOString(),
-      });
-
-      if (response.success) {
-        Alert.alert("Success", "Entry updated successfully!", [
-          { text: "OK", onPress: () => navigation.goBack() },
-        ]);
-      } else {
-        Alert.alert("Error", "Failed to update entry.");
-      }
-    } catch (error) {
-      Alert.alert("Unexpected Error", "Something went wrong.");
-    }
-
-    setLoading(false);
-  };
+  const {
+    title,
+    setTitle,
+    description,
+    setDescription,
+    loading,
+    handleUpdateEntry,
+  } = useEditEntry(route.params.entry, navigation);
 
   return (
     <View style={styles.container}>
@@ -58,13 +32,13 @@ const EditEntry = ({ route, navigation }) => {
         onChangeText={setTitle}
       />
 
-      <Text style={styles.label}>Story</Text>
+      <Text style={styles.label}>Description</Text>
       <TextInput
         style={[styles.input, styles.storyInput]}
-        placeholder="Write your story..."
+        placeholder="Write your description..."
         placeholderTextColor="#999"
-        value={story}
-        onChangeText={setStory}
+        value={description}
+        onChangeText={setDescription}
         multiline
       />
 
